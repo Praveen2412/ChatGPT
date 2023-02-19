@@ -1,0 +1,120 @@
+
+<html>
+    <head>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+document.body.style.background = 'linear-gradient(to bottom, #00bfff 20%, #ffffff 100%)';
+
+var forest = document.createElement('img');
+forest.src = 'https://i.ibb.co/k9RZFwt/forest.png';
+forest.style.position = 'absolute';
+forest.style.bottom = '20%';
+forest.style.width = '100%';
+document.body.appendChild(forest);
+
+var hunter = document.createElement('img');
+hunter.src = 'https://i.ibb.co/Dz3LJQ4/hunter.png';
+hunter.style.position = 'absolute';
+hunter.style.bottom = '20%';
+hunter.style.left = '0';
+hunter.style.width = '14%';
+document.body.appendChild(hunter);
+
+var lion = document.createElement('img');
+lion.src = 'https://i.ibb.co/cxDN5jD/lion.png';
+lion.style.position = 'absolute';
+lion.style.bottom = '20%';
+lion.style.right = '0%';
+lion.style.width = '14%';
+document.body.appendChild(lion);
+
+var lionJump = function() {
+  lion.style.bottom = '35%';
+  setTimeout(function() {
+    lion.style.bottom = '20%';
+  }, 500);
+};
+
+document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 32) {
+    lionJump();
+  }
+});
+
+var bullet = document.createElement('img');
+bullet.src = 'https://i.ibb.co/37w4gsb/Bullet-1.png';
+bullet.style.position = 'absolute';
+bullet.style.bottom = '50%';
+bullet.style.left = '0%';
+bullet.style.width = '7%';
+bullet.style.display = 'none';
+document.body.appendChild(bullet);
+
+
+
+var bulletFire = function() {
+  bullet.style.display = 'block';
+  bullet.style.left = '10%';
+  bullet.style.bottom = '29%';
+  var bulletInterval = setInterval(function() {
+    bullet.style.left = parseInt(bullet.style.left) + 1 + '%';
+    if (parseInt(bullet.style.left) > 90) {
+      clearInterval(bulletInterval);
+      bullet.style.display = 'none';
+    }
+  }, 10);
+};
+
+setInterval(bulletFire, 2000);
+
+var lionLife = document.createElement('div');
+lionLife.style.position = 'absolute';
+lionLife.style.top = '50px';
+lionLife.style.right = '300px';
+lionLife.style.width = '20%';
+lionLife.style.height = '15%';
+
+lionLife.style.color = 'red';
+lionLife.style.textAlign = 'center';
+lionLife.style.fontSize = '30px';
+lionLife.innerHTML = 'Lion health: 10';
+document.body.appendChild(lionLife);
+
+var score = document.createElement('div');
+score.style.position = 'absolute';
+score.style.top = '50px';
+score.style.left = '300px';
+score.style.width = '5%';
+score.style.height = '15%';
+
+score.style.color = 'green';
+score.style.textAlign = 'center';
+score.style.fontSize = '30px';
+score.innerHTML = 'Score: 0';
+document.body.appendChild(score);
+
+var lionLifeCount = 10;
+var scoreCount = 0;
+
+var checkBullet = function() {
+  if (parseInt(bullet.style.left) > 80 && parseInt(bullet.style.left) < 82 ) {
+    if (parseInt(lion.style.bottom) === 20) {
+      lionLifeCount--;
+      lionLife.innerHTML = 'Lion health: ' + lionLifeCount;
+      if (lionLifeCount === 0) {
+        alert('Game Over');
+        location.reload();
+      }
+    } else {
+      scoreCount++;
+      score.innerHTML = 'Score: ' + scoreCount;
+    }
+  }
+};
+
+setInterval(checkBullet, 1);
+});
+        </script>
+    
+</html> 
